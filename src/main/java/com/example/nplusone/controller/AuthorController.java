@@ -27,9 +27,23 @@ public class AuthorController {
     }
 
     @GetMapping("/without-n-plus-one")
-    @Operation(summary = "N+1 문제를 해결한 작가 조회", 
+    @Operation(summary = "N+1 문제를 해결한 작가 조회 (Fetch Join)", 
                description = "JOIN FETCH를 사용하여 N+1 문제를 해결한 작가 조회입니다. 로그를 확인하여 쿼리 개수를 비교해보세요.")
     public List<Author> getAuthorsWithoutNPlusOneProblem() {
         return authorService.findAllAuthorsWithoutNPlusOneProblem();
+    }
+
+    @GetMapping("/with-entity-graph")
+    @Operation(summary = "N+1 문제를 해결한 작가 조회 (EntityGraph)", 
+               description = "@EntityGraph를 사용하여 N+1 문제를 해결한 작가 조회입니다. 로그를 확인하여 쿼리 개수를 비교해보세요.")
+    public List<Author> getAuthorsWithEntityGraph() {
+        return authorService.findAllAuthorsWithEntityGraph();
+    }
+
+    @GetMapping("/with-jpql")
+    @Operation(summary = "N+1 문제를 해결한 작가 조회 (JPQL LEFT JOIN FETCH)", 
+               description = "JPQL LEFT JOIN FETCH를 사용하여 N+1 문제를 해결한 작가 조회입니다. 로그를 확인하여 쿼리 개수를 비교해보세요.")
+    public List<Author> getAuthorsWithJpql() {
+        return authorService.findAllAuthorsWithJpql();
     }
 }
